@@ -1,0 +1,402 @@
+/* 🌑 พื้นหลังเว็บ */
+body {
+  margin: 0;
+  font-family: Arial, Helvetica, sans-serif;
+  background: #0f0f0f;
+  color: white;
+}
+
+/* 🔥 จัดกลางจอ */
+.auth-container {
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* 🔥 กล่อง Login/Register */
+.auth-card {
+  background: #1a1a1a; /* ดำเทา */
+  padding: 35px;
+  border-radius: 14px;
+  width: 350px;
+  text-align: center;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.6);
+}
+
+/* 🔤 หัวข้อ */
+.auth-card h2 {
+  margin-bottom: 20px;
+  color: white;
+}
+
+/* 📥 input */
+.auth-card input {
+  width: 100%;
+  padding: 12px;
+  margin-top: 10px;
+  border-radius: 8px;
+  border: none;
+  outline: none;
+  background: #2a2a2a;
+  color: white;
+}
+
+.add-btn{
+  background:#ff2e93;   /* 🔥 ชมพูหลัก */
+  color:white;
+  border:none;
+  padding:10px 16px;
+  border-radius:10px;
+  cursor:pointer;
+  transition:0.25s;
+  font-weight:500;
+}
+
+.add-btn:hover{
+  background:#ff0f82;   /* 🔥 ชมพูเข้มตอน hover */
+  transform:scale(1.05);
+}
+
+/* 🔗 ลิงก์ล่าง */
+.auth-links {
+  margin-top: 15px;
+  display: flex;
+  justify-content: space-between;
+  font-size: 14px;
+}
+
+.auth-links a {
+  color: #ff2e93;
+  text-decoration: none;
+}
+
+.auth-links a:hover {
+  text-decoration: underline;
+}
+
+.navbar{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  padding:20px;
+  background:#111; /* พื้นหลัง navbar สีดำ */
+}
+
+.nav-left{
+  display:flex;
+  align-items:center;
+  gap:20px;
+}
+
+.search{
+  padding:8px 12px;
+  width:260px;
+  border-radius:6px;
+  border:none;
+  outline:none;
+  background:#222; /* ช่องค้นหาดำ */
+  color:white;
+}
+
+.search::placeholder{
+  color:#aaa;
+}
+
+.nav-right{
+  display:flex;
+  gap:10px;
+}
+
+.nav-right button{
+  padding:8px 14px;
+  border:none;
+  border-radius:8px;
+  background:#ff4da6; /* ปุ่มสีชมพู */
+  color:white;
+  cursor:pointer;
+  transition:0.25s;
+  font-weight:500;
+}
+
+.nav-right button:hover{
+  background:#ff1f8f;
+  transform:scale(1.05);
+}
+/* 🔥 grid เรียงสินค้า */
+.product-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fill, minmax(220px, 1fr));
+  gap:20px;
+}
+
+/* 🔥 การ์ดสินค้า */
+.product-card{
+  background:#1a1a1a;
+  padding:15px;
+  border-radius:16px;
+  box-shadow:0 5px 20px rgba(0,0,0,0.5);
+  transition:0.3s;
+  text-align:center;
+}
+
+.product-card:hover{
+  transform:translateY(-6px);
+}
+
+/* 🔥 กล่องครอบรูป */
+.image-box{
+  width:100%;
+  height:180px;
+  background:#111;
+  border-radius:12px;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  overflow:hidden;
+  margin-bottom:12px;
+}
+
+/* 🔥 รูป */
+.product-image{
+  max-width:100%;
+  max-height:100%;
+  object-fit:contain;
+  transition:0.3s;
+}
+
+.product-card:hover .product-image{
+  transform:scale(1.05);
+}
+
+/* 🔤 ชื่อสินค้า */
+.product-name{
+  color:#ff2e93;
+  font-size:18px;
+  margin-top:5px;
+}
+
+/* 💰 ราคา */
+.product-price{
+  margin:8px 0;
+  font-weight:bold;
+}
+
+/* ========================= */
+/* 🔥 FIX PRODUCT GRID */
+/* ========================= */
+
+/* ทำให้ card สูงเท่ากัน */
+.product-card{
+  display:flex;
+  flex-direction:column;
+  justify-content:space-between;
+  height:100%;
+}
+
+/* ล็อกรูปให้เท่ากันทุกอัน */
+.product-image{
+  width:100%;
+  height:100%;
+  object-fit:contain;
+}
+
+
+/* ========================= */
+/* 🔥 FIX CHECKOUT CENTER */
+/* ========================= */
+
+.checkout-container{
+  min-height:100vh;
+  display:flex;
+  justify-content:center !important;
+  align-items:center;
+  background:#0f0f0f;
+}
+
+/* กล่อง checkout */
+.box{
+  background:#1a1a1a;
+  padding:35px;
+  border-radius:16px;
+  width:380px;
+  text-align:center;
+  box-shadow:0 10px 30px rgba(0,0,0,0.6);
+  color:white;
+}
+
+/* input / select */
+.box input,
+.box select{
+  width:100%;
+  padding:10px;
+  border-radius:8px;
+  border:none;
+  background:#2a2a2a;
+  color:white;
+  margin-top:8px;
+}
+
+/* ปุ่มใน checkout */
+.box button{
+  background:#ff2e93;
+  color:white;
+  border:none;
+  border-radius:10px;
+  padding:10px 15px;
+  cursor:pointer;
+  transition:0.25s;
+}
+
+.box button:hover{
+  background:#ff0f82;
+  transform:scale(1.05);
+}
+/* 🔥 FIX GRID 100% */
+.product-grid{
+  display: grid !important;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)) !important;
+  gap: 20px;
+}
+
+/* กัน card ล้น */
+.product-card{
+  width: 100%;
+}
+/* 🔥 ปรับ grid ให้โล่งขึ้น */
+.product-grid{
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)) !important;
+  gap: 30px !important;
+}
+
+/* 🔥 เพิ่ม padding ให้ทั้งหน้า */
+.products-page{
+  padding: 40px;
+}
+
+/* 🔥 การ์ดดูโปรขึ้น */
+.product-card{
+  padding: 20px;
+  border-radius: 18px;
+}
+
+/* 🔥 เพิ่มระยะห่างใน card */
+.product-name{
+  margin-top: 10px;
+}
+
+.product-price{
+  margin: 10px 0;
+}
+
+/* 🔥 ปุ่มไม่อึดอัด */
+.add-btn{
+  margin-top: 10px;
+}
+/* 🔥 บังคับ grid ไม่ให้พัง */
+.product-grid{
+  display: grid !important;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)) !important;
+  gap: 25px !important;
+  align-items: stretch;
+}
+
+/* 🔥 กัน card ซ้อน */
+.product-card{
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  background:#1a1a1a;
+  padding:20px;
+  border-radius:16px;
+  box-sizing: border-box;
+}
+
+/* 🔥 ล็อกกรอบรูป */
+.image-box{
+  width:100%;
+  height:180px;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  overflow:hidden;
+}
+
+/* 🔥 กันรูปล้น / ซ้อน */
+.product-image{
+  width:100%;
+  height:100%;
+  object-fit:contain;
+  display:block;
+}
+
+/* 🔥 กันข้อความดัน layout */
+.product-name{
+  min-height:40px;
+}
+.box{
+  margin: auto;
+}
+.banner {
+  text-align: center;
+  margin: 20px 0; /* ลด margin */
+  background: linear-gradient(90deg, #ff85c0, #ff2e93);
+  padding: 30px 15px; /* ลด padding */
+  border-radius: 15px;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+  color: white;
+}
+
+.banner h1 {
+  font-size: 2rem; /* ลดจาก 3rem */
+  font-weight: bold;
+  text-shadow: 2px 2px 6px rgba(0,0,0,0.4); /* ลด shadow เล็กน้อย */
+  margin-bottom: 8px; /* ลด margin */
+  font-family: 'Poppins', sans-serif;
+}
+
+.banner p {
+  font-size: 1.2rem; /* ลดจาก 1.5rem */
+  font-weight: 500;
+}
+/* ปรับความยาวช่องค้นหา */
+.navbar .search {
+  width: 300px; /* เพิ่มความกว้างตามต้องการ */
+  max-width: 80%; /* ไม่ให้เกินหน้าจอบนมือถือ */
+  padding: 8px 12px;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  font-size: 1rem;
+}
+.navbar .nav-right .search {
+  flex-grow: 1;
+  min-width: 150px;
+}
+.nav-left .logo {
+  font-size: 4rem;
+  font-weight: 900;
+  background: linear-gradient(90deg, #ff85c0, #ff2e93);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  text-shadow: 2px 2px 10px rgba(0,0,0,0.3);
+}
+.coupon-banner {
+  background-color: #fff5e6; /* สีครีมอ่อน */
+  padding: 20px 30px;
+  border-radius: 12px;
+  text-align: center;
+  margin: 20px 0;
+  box-shadow: 0 3px 8px rgba(0,0,0,0.15);
+  color: #333; /* ตัวอักษรสีเข้ม อ่านง่าย */
+}
+
+.coupon-banner h2 {
+  font-size: 1.8rem;
+  font-weight: bold;
+  margin-bottom: 8px;
+}
+
+.coupon-banner p {
+  font-size: 1.2rem;
+  margin: 0;
+}

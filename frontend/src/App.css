@@ -1,0 +1,67 @@
+/* 🔥 Checkout Container (จัดกลางจอเหมือน auth แต่แยก class) */
+.checkout-container {
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* 🔥 กล่อง Checkout */
+.box {
+  background: #1a1a1a; /* ใช้โทนเดียวกับ auth-card */
+  padding: 35px;
+  border-radius: 16px;
+  width: 380px;
+  text-align: center;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.6);
+  animation: fadeIn 0.4s ease;
+}
+
+/* 🔤 หัวข้อ */
+.box h2 {
+  margin-bottom: 15px;
+}
+
+.box h3 {
+  margin: 8px 0;
+  color: #ccc;
+}
+
+/* 📄 รายการสินค้า */
+.box p {
+  margin: 5px 0;
+  font-size: 14px;
+}
+
+/* 📥 input + select */
+.box input,
+.box select {
+  width: 100%;
+  padding: 10px;
+  border-radius: 8px;
+  border: none;
+  outline: none;
+  background: #2a2a2a;
+  color: white;
+  margin-top: 8px;
+}
+
+/* 🔥 QR */
+.box img {
+  margin-top: 10px;
+  border-radius: 12px;
+  background: white;
+  padding: 5px;
+}
+
+/* ✨ animation นิดหน่อย */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(15px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

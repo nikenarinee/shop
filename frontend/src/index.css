@@ -1,0 +1,48 @@
+.navbar{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  padding:20px;
+  background:#111; /* พื้นหลัง navbar สีดำ */
+}
+
+.nav-left{
+  display:flex;
+  align-items:center;
+  gap:20px;
+}
+
+.search{
+  padding:8px 12px;
+  width:260px;
+  border-radius:6px;
+  border:none;
+  outline:none;
+  background:#222; /* ช่องค้นหาดำ */
+  color:white;
+}
+
+.search::placeholder{
+  color:#aaa;
+}
+
+.nav-right{
+  display:flex;
+  gap:10px;
+}
+
+.nav-right button{
+  padding:8px 14px;
+  border:none;
+  border-radius:8px;
+  background:#ff4da6; /* ปุ่มสีชมพู */
+  color:white;
+  cursor:pointer;
+  transition:0.25s;
+  font-weight:500;
+}
+
+.nav-right button:hover{
+  background:#ff1f8f;
+  transform:scale(1.05);
+}
