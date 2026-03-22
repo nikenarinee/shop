@@ -193,6 +193,10 @@ function App() {
         )}
 
       </Routes>
+      <Routes>
+  <Route path="/forgot-password" element={<ForgotPassword />} />
+  <Route path="/update-password" element={<UpdatePassword />} />
+</Routes>
     </div>
   )
 }
