@@ -101,7 +101,7 @@ function App() {
                     </div>
 
                     {/* BANNER & CONTENT */}
-                    <div className="banner"><h1>PinkShop Sale</h1><h2>PINK10</h2><p>ช้อปคุ้ม ลดแรง ทุกสินค้า</p></div>
+                    <div className="banner"><h1>PinkShop Sale</h1><p>ช้อปคุ้ม ลดแรง ทุกสินค้า  PINK10 </p></div>
                     <div className="content">
                       {showOrders ? (
                         <Orders setShowOrders={setShowOrders} backToHome={() => setShowOrders(false)} />
