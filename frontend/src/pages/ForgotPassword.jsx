@@ -5,6 +5,7 @@ function ForgotPassword() {
 
   const [email, setEmail] = useState("")
   const [message, setMessage] = useState("")
+  const [loading, setLoading] = useState(false)
 
   const handleReset = async () => {
 
@@ -13,17 +14,22 @@ function ForgotPassword() {
       return
     }
 
-    // 🔥 เรียก Supabase ส่งลิงก์รีเซ็ตรหัส
+    setLoading(true)
+    setMessage("")
+
+    // 🔥 ใส่ URL ตรงๆ ชัดๆ
     const { error } = await supabase.auth.resetPasswordForEmail(email, {
-      redirectTo: window.location.origin + "/update-password"
+      redirectTo: "https://shop-fron.onrender.com/update-password"
     })
 
     if (error) {
       setMessage("❌ ส่งอีเมลไม่สำเร็จ")
+      console.log(error)
     } else {
-      setMessage("✅ ส่งลิงก์รีเซ็ตรหัสไปที่อีเมลแล้ว")
+      setMessage("✅ ส่งลิงก์รีเซ็ตรหัสไปที่อีเมลแล้ว 📩")
     }
 
+    setLoading(false)
   }
 
   return (
@@ -41,8 +47,8 @@ function ForgotPassword() {
 
         <br /><br />
 
-        <button onClick={handleReset}>
-          Reset Password
+        <button onClick={handleReset} disabled={loading}>
+          {loading ? "กำลังส่ง..." : "Reset Password"}
         </button>
 
         <p>{message}</p>
