@@ -3,7 +3,6 @@ import { supabase } from "../lib/supabase"
 import { useNavigate } from "react-router-dom"
 
 function Admin() {
-
   const [products, setProducts] = useState([])
   const navigate = useNavigate()
 
@@ -12,7 +11,6 @@ function Admin() {
   }, [])
 
   const fetchProducts = async () => {
-
     const { data, error } = await supabase
       .from("products")
       .select("*")
@@ -27,7 +25,6 @@ function Admin() {
   }
 
   const deleteProduct = async (id) => {
-
     const confirmDelete = window.confirm("Delete this product?")
     if (!confirmDelete) return
 
@@ -46,40 +43,56 @@ function Admin() {
     fetchProducts()
   }
 
-  // ✅ เพิ่ม Logout
   const handleLogout = async () => {
     await supabase.auth.signOut()
     window.location.href = "/"
   }
 
   return (
-
     <div style={{ padding: "40px", color: "white" }}>
-
-      {/* ✅ แก้ตรงนี้นิดเดียว */}
-      <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+      
+      {/* ส่วนหัวที่มีปุ่ม Home และ Logout */}
+      <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "20px" }}>
         <h1>Admin Dashboard</h1>
 
-        <button
-          onClick={handleLogout}
-          style={{
-            background: "red",
-            border: "none",
-            padding: "10px 20px",
-            borderRadius: "8px",
-            color: "white",
-            cursor: "pointer"
-          }}
-        >
-          🚪 Logout
-        </button>
+        <div style={{ display: "flex", gap: "10px" }}>
+          {/* 🏠 ปุ่มกลับหน้า Owner Dashboard */}
+          <button
+            onClick={() => navigate("/admin")} // <-- เปลี่ยนเป็น Path ของหน้า Dashboard หลักของคุณ
+            style={{
+              background: "#444",
+              border: "none",
+              padding: "10px 20px",
+              borderRadius: "8px",
+              color: "white",
+              cursor: "pointer",
+              fontWeight: "bold"
+            }}
+          >
+            🏠 Home
+          </button>
+
+          <button
+            onClick={handleLogout}
+            style={{
+              background: "red",
+              border: "none",
+              padding: "10px 20px",
+              borderRadius: "8px",
+              color: "white",
+              cursor: "pointer",
+              fontWeight: "bold"
+            }}
+          >
+            🚪 Logout
+          </button>
+        </div>
       </div>
 
-      <p>จัดการสินค้า</p>
+      <p>จัดการสินค้าในระบบ</p>
 
-      {/* 🔥 ปุ่มด้านบน */}
-      <div style={{ marginBottom: "20px" }}>
-
+      {/* โซนปุ่มจัดการหลัก */}
+      <div style={{ marginBottom: "30px", display: "flex", gap: "10px" }}>
         <button
           onClick={() => navigate("/add-product")}
           style={{
@@ -88,8 +101,7 @@ function Admin() {
             padding: "12px 20px",
             borderRadius: "8px",
             color: "white",
-            cursor: "pointer",
-            marginRight: "10px"
+            cursor: "pointer"
           }}
         >
           ➕ Add Product
@@ -108,75 +120,78 @@ function Admin() {
         >
           📦 View Orders
         </button>
-
       </div>
+
+      <hr style={{ borderColor: "#444", marginBottom: "30px" }} />
 
       <h2>Product List</h2>
 
       {products.length === 0 && (
-        <p>ยังไม่มีสินค้า</p>
+        <p style={{ color: "#aaa" }}>ยังไม่มีสินค้าในระบบ</p>
       )}
 
       {products.map(product => (
-
         <div
           key={product.id}
           style={{
             border: "1px solid #555",
-            padding: "15px",
+            padding: "20px",
             marginTop: "15px",
-            borderRadius: "10px"
+            borderRadius: "12px",
+            background: "#1a1a1a"
           }}
         >
+          <div style={{ display: "flex", gap: "20px", alignItems: "start" }}>
+            {product.image && (
+              <img
+                src={product.image}
+                width="120"
+                alt={product.name}
+                style={{ borderRadius: "10px", objectFit: "cover" }}
+              />
+            )}
+            
+            <div style={{ flex: 1 }}>
+              <h3 style={{ margin: "0 0 10px 0" }}>{product.name}</h3>
+              <p style={{ color: "#00ff88", fontWeight: "bold", fontSize: "1.2rem" }}>
+                {product.price.toLocaleString()} บาท
+              </p>
+              
+              <div style={{ marginTop: "15px" }}>
+                <button
+                  onClick={() => navigate(`/edit-product/${product.id}`)}
+                  style={{
+                    background: "orange",
+                    border: "none",
+                    padding: "8px 18px",
+                    borderRadius: "6px",
+                    color: "white",
+                    cursor: "pointer",
+                    marginRight: "10px"
+                  }}
+                >
+                  Edit
+                </button>
 
-          <h3>{product.name}</h3>
-          <p>{product.price} บาท</p>
-
-          {product.image && (
-            <img
-              src={product.image}
-              width="120"
-              style={{ borderRadius: "10px" }}
-            />
-          )}
-
-          <br /><br />
-
-          <button
-            onClick={() => navigate(`/edit-product/${product.id}`)}
-            style={{
-              background: "orange",
-              border: "none",
-              padding: "8px 15px",
-              borderRadius: "6px",
-              color: "white",
-              cursor: "pointer",
-              marginRight: "10px"
-            }}
-          >
-            Edit
-          </button>
-
-          <button
-            onClick={() => deleteProduct(product.id)}
-            style={{
-              background: "red",
-              border: "none",
-              padding: "8px 15px",
-              borderRadius: "6px",
-              color: "white",
-              cursor: "pointer"
-            }}
-          >
-            Delete
-          </button>
-
+                <button
+                  onClick={() => deleteProduct(product.id)}
+                  style={{
+                    background: "#333",
+                    border: "1px solid red",
+                    padding: "8px 18px",
+                    borderRadius: "6px",
+                    color: "red",
+                    cursor: "pointer"
+                  }}
+                >
+                  Delete
+                </button>
+              </div>
+            </div>
+          </div>
         </div>
-
       ))}
-
     </div>
-
   )
 }
 
