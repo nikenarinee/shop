@@ -11,9 +11,8 @@ export default function Register() {
   const [email, setEmail] = useState("")
   const [password, setPassword] = useState("")
   const [loading, setLoading] = useState(false)
-  const [showPassword, setShowPassword] = useState(false) // ✅ ควบคุมการเปิด/ปิดตา
+  const [showPassword, setShowPassword] = useState(false)
 
-  // ✅ ฟังก์ชันเช็คความรัดกุม (OWASP A07: Identification and Authentication Failures)
   const isStrongPassword = (pass) => {
     const regex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/
     return regex.test(pass)
@@ -31,20 +30,11 @@ export default function Register() {
     }
 
     setLoading(true)
-
     try {
-      const { data, error } = await supabase.auth.signUp({
-        email,
-        password
-      })
-
-      if (error) {
-        alert(error.message)
-        return
-      }
+      const { data, error } = await supabase.auth.signUp({ email, password })
+      if (error) { alert(error.message); return; }
 
       const user = data.user || data.session?.user
-
       if (!user) {
         alert("สมัครสำเร็จ กรุณาเช็คอีเมลเพื่อยืนยันตัวตนก่อนเข้าสู่ระบบ")
         navigate("/login")
@@ -53,25 +43,15 @@ export default function Register() {
 
       const { error: insertError } = await supabase
         .from("users")
-        .insert([
-          {
-            id: user.id,
-            name: name,
-            phone: phone,
-            email: email,
-            role: "user"
-          }
-        ])
+        .insert([{ id: user.id, name, phone, email, role: "user" }])
 
       if (insertError) {
-        console.error("INSERT ERROR:", insertError)
         alert("บันทึกข้อมูลล้มเหลว: " + insertError.message)
         return
       }
 
       alert("สมัครสมาชิกสำเร็จ 🎉")
       navigate("/login")
-
     } catch (err) {
       alert("เกิดข้อผิดพลาดไม่คาดคิด")
     } finally {
@@ -106,12 +86,11 @@ export default function Register() {
           onChange={(e) => setEmail(e.target.value)}
         />
         
-        {/* ✅ ส่วนของ Password ที่แก้ไข: จัดลูกตาไว้ขวาในกล่องขาว และไม่ล้น */}
+        {/* ✅ ช่องรหัสผ่าน: เปลี่ยนไอคอนเป็นแบบ B (กุญแจล็อค/ปลดล็อค) */}
         <div style={{ 
           position: "relative", 
           width: "100%", 
-          display: "flex", 
-          alignItems: "center" 
+          boxSizing: "border-box"
         }}>
           <input
             type={showPassword ? "text" : "password"}
@@ -121,9 +100,9 @@ export default function Register() {
             onChange={(e) => setPassword(e.target.value)}
             style={{ 
               width: "100%", 
-              paddingRight: "45px", // เว้นที่ให้ลูกตา
-              boxSizing: "border-box", // ✅ ป้องกันกล่องล้นขอบสีดำ
-              height: "45px", // ปรับความสูงให้สมดุล
+              paddingRight: "45px", 
+              boxSizing: "border-box", 
+              height: "45px",
               borderRadius: "8px",
               border: "none",
               backgroundColor: "white",
@@ -135,22 +114,24 @@ export default function Register() {
             onClick={() => setShowPassword(!showPassword)}
             style={{
               position: "absolute",
-              right: "12px",
+              right: "0",
+              height: "100%",
+              width: "45px",
               background: "none",
               border: "none",
               cursor: "pointer",
-              fontSize: "18px",
-              padding: "0",
-              color: "#333",
+              fontSize: "20px", // ปรับขนาดไอคอนกุญแจให้ชัดขึ้น
               display: "flex",
-              alignItems: "center"
+              alignItems: "center",
+              justifyContent: "center",
+              color: "#333"
             }}
           >
-            {showPassword ? "🙈" : "👁️"}
+            {/* ✅ เปลี่ยนรูปลูกตาเป็นแม่กุญแจตามแบบ B */}
+            {showPassword ? "🔓" : "🔒"}
           </button>
         </div>
         
-        {/* ✅ ข้อความแนะนำสีขาว */}
         <p style={{ 
           color: "white", 
           fontSize: "12px", 
