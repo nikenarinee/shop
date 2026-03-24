@@ -86,11 +86,11 @@ export default function Register() {
           onChange={(e) => setEmail(e.target.value)}
         />
         
-        {/* ✅ ช่องรหัสผ่าน: เปลี่ยนไอคอนเป็นแบบ B (กุญแจล็อค/ปลดล็อค) */}
+        {/* ✅ แก้ไขส่วนนี้: ปุ่มลูกตาอยู่ฝั่งขวาในกล่องขาว */}
         <div style={{ 
           position: "relative", 
           width: "100%", 
-          boxSizing: "border-box"
+          boxSizing: "border-box" // ป้องกันล้นกล่องดำ
         }}>
           <input
             type={showPassword ? "text" : "password"}
@@ -100,8 +100,8 @@ export default function Register() {
             onChange={(e) => setPassword(e.target.value)}
             style={{ 
               width: "100%", 
-              paddingRight: "45px", 
-              boxSizing: "border-box", 
+              paddingRight: "45px", // เว้นที่ด้านขวาให้ปุ่ม
+              boxSizing: "border-box", // ✅ สำคัญ: ทำให้ padding ไม่ดันกล่องจนล้น
               height: "45px",
               borderRadius: "8px",
               border: "none",
@@ -114,21 +114,21 @@ export default function Register() {
             onClick={() => setShowPassword(!showPassword)}
             style={{
               position: "absolute",
-              right: "0",
-              height: "100%",
-              width: "45px",
+              right: "0", // ✅ ชิดขวาสุดของกล่องขาว
+              top: "0",
+              height: "100%", // ให้ความสูงเท่ากับ input
+              width: "45px", // พื้นที่คลิกปุ่ม
               background: "none",
               border: "none",
               cursor: "pointer",
-              fontSize: "20px", // ปรับขนาดไอคอนกุญแจให้ชัดขึ้น
+              fontSize: "18px",
               display: "flex",
               alignItems: "center",
               justifyContent: "center",
               color: "#333"
             }}
           >
-            {/* ✅ เปลี่ยนรูปลูกตาเป็นแม่กุญแจตามแบบ B */}
-            {showPassword ? "🔓" : "🔒"}
+            {showPassword ? "🙈" : "👁️"}
           </button>
         </div>
         
