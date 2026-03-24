@@ -90,17 +90,18 @@ function App() {
         {/* PRIVATE */}
         {user ? (
           <>
+            {/* 🔥 HOME */}
             <Route
               path="/"
               element={
                 role === "owner" ? (
-                  <OwnerDashboard />
+                  <Navigate to="/owner-dashboard" />
                 ) : role === "admin" ? (
                   <Admin />
                 ) : (
                   <div>
 
-                    {/* 🔥 NAVBAR (แก้แล้ว) */}
+                    {/* NAVBAR */}
                     <div className="navbar">
                       <div className="nav-left">
                         <h1 className="logo">PinkShop</h1>
@@ -139,7 +140,7 @@ function App() {
                       </div>
                     </div>
 
-                    {/* 🔥 CONTENT */}
+                    {/* CONTENT */}
                     <div className="content">
                       {showOrders ? (
                         <Orders setShowOrders={setShowOrders} />
@@ -156,6 +157,16 @@ function App() {
 
                   </div>
                 )
+              }
+            />
+
+            {/* 🔥 ADD THIS (สำคัญมาก) */}
+            <Route
+              path="/owner-dashboard"
+              element={
+                role === "owner"
+                  ? <OwnerDashboard />
+                  : <Navigate to="/" />
               }
             />
 
