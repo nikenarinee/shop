@@ -10,11 +10,10 @@ export default function Register() {
   const [phone, setPhone] = useState("")
   const [email, setEmail] = useState("")
   const [password, setPassword] = useState("")
-  const [loading, setLoading] = useState(false) // 1. เพิ่ม Loading state
+  const [loading, setLoading] = useState(false)
+  const [showPassword, setShowPassword] = useState(false) // ✅ 1. State สำหรับเปิด/ปิดตา
 
-  // ✅ ฟังก์ชันเช็คความรัดกุม (Regex)
   const isStrongPassword = (pass) => {
-    // ยาว 8+, มีพิมพ์ใหญ่, พิมพ์เล็ก, ตัวเลข, อักขระพิเศษ
     const regex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/
     return regex.test(pass)
   }
@@ -25,16 +24,14 @@ export default function Register() {
       return
     }
 
-    // 2. ตรวจสอบความปลอดภัยของรหัสผ่านก่อนส่งไป Server
     if (!isStrongPassword(password)) {
-      alert("รหัสผ่านไม่ปลอดภัยพอ! ต้องมีอย่างน้อย 8 ตัวอักษร, พิมพ์ใหญ่, พิมพ์เล็ก, ตัวเลข และสัญลักษณ์ (@$!%*?&)")
+      alert("รหัสผ่านไม่ปลอดภัยพอ! ต้องมีอย่างน้อย 8 ตัวอักษร, พิมพ์ใหญ่, พิมพ์เล็ก, ตัวเลข และสัญลักษณ์")
       return
     }
 
-    setLoading(true) // เริ่มทำงาน
+    setLoading(true)
 
     try {
-      // สมัคร auth
       const { data, error } = await supabase.auth.signUp({
         email,
         password
@@ -48,12 +45,11 @@ export default function Register() {
       const user = data.user || data.session?.user
 
       if (!user) {
-        alert("สมัครสำเร็จ กรุณาเช็คอีเมลเพื่อยืนยันตัวตนก่อนเข้าสู่ระบบ")
+        alert("สมัครสำเร็จ กรุณาเช็คอีเมลเพื่อยืนยันตัวตน")
         navigate("/login")
         return
       }
 
-      // บันทึกลง users table
       const { error: insertError } = await supabase
         .from("users")
         .insert([
@@ -67,7 +63,6 @@ export default function Register() {
         ])
 
       if (insertError) {
-        console.error("INSERT ERROR:", insertError)
         alert("บันทึกข้อมูลล้มเหลว: " + insertError.message)
         return
       }
@@ -78,7 +73,7 @@ export default function Register() {
     } catch (err) {
       alert("เกิดข้อผิดพลาดไม่คาดคิด")
     } finally {
-      setLoading(false) // จบการทำงาน
+      setLoading(false)
     }
   }
 
@@ -86,18 +81,21 @@ export default function Register() {
     <div className="auth-container">
       <div className="auth-card">
         <h2>Register</h2>
+        
         <input
           placeholder="Name"
           value={name}
           disabled={loading}
           onChange={(e) => setName(e.target.value)}
         />
+        
         <input
           placeholder="Phone"
           value={phone}
           disabled={loading}
           onChange={(e) => setPhone(e.target.value)}
         />
+        
         <input
           type="email"
           placeholder="Email"
@@ -105,17 +103,38 @@ export default function Register() {
           disabled={loading}
           onChange={(e) => setEmail(e.target.value)}
         />
-        <input
-          type="password"
-          placeholder="Password (8+ ตัวอักษร, A, a, 1, @)"
-          value={password}
-          disabled={loading}
-          onChange={(e) => setPassword(e.target.value)}
-        />
         
-        {/* แสดงคำแนะนำเล็กๆ ด้านล่าง input รหัสผ่าน */}
-        <p className="password-hint">
-          ใช้รหัสผ่านที่ยากต่อการเดาเพื่อความปลอดภัย
+        {/* ✅ 2. ปรับช่องรหัสผ่านให้มีปุ่มดูรหัส */}
+        <div style={{ position: "relative", width: "100%" }}>
+          <input
+            type={showPassword ? "text" : "password"} // สลับ type
+            placeholder="Password (8+ ตัวอักษร, A, a, 1, @)"
+            value={password}
+            disabled={loading}
+            onChange={(e) => setPassword(e.target.value)}
+            style={{ width: "100%", paddingRight: "45px" }} // เว้นที่ให้ไอคอน
+          />
+          <button
+            type="button"
+            onClick={() => setShowPassword(!showPassword)}
+            style={{
+              position: "absolute",
+              right: "10px",
+              top: "50%",
+              transform: "translateY(-50%)",
+              background: "none",
+              border: "none",
+              cursor: "pointer",
+              fontSize: "18px"
+            }}
+          >
+            {showPassword ? "🙈" : "👁️"}
+          </button>
+        </div>
+        
+        {/* ✅ 3. ปรับสีข้อความแนะนำให้เป็นสีขาว */}
+        <p style={{ color: "white", fontSize: "12px", textAlign: "left", marginTop: "5px", marginBottom: "15px" }}>
+          * ใช้รหัสผ่านที่ยากต่อการเดาเพื่อความปลอดภัย
         </p>
 
         <button 
