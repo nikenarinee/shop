@@ -1,36 +1,57 @@
 import { useEffect, useState } from "react"
-import { useParams } from "react-router-dom"
+import { useParams, useNavigate } from "react-router-dom"
 import { supabase } from "../lib/supabase"
 
 function ProductDetail() {
 
   const { id } = useParams()
+  const navigate = useNavigate()
+
   const [product, setProduct] = useState(null)
+  const [loading, setLoading] = useState(true)
 
   const fetchProduct = async () => {
 
     const { data, error } = await supabase
       .from("products")
       .select("*")
-      .eq("id", id)
+      .eq("id", Number(id)) // ✅ แปลง id เป็น number
       .single()
 
-    if (!error) {
+    if (error) {
+      console.log("Error:", error)
+    } else {
       setProduct(data)
     }
+
+    setLoading(false)
   }
 
   useEffect(() => {
     fetchProduct()
-  }, [])
+  }, [id]) // ✅ เผื่อ id เปลี่ยน
 
-  if (!product) return <p>Loading...</p>
+  if (loading) return <p>Loading...</p>
+
+  if (!product) {
+    return (
+      <div style={{ padding: "20px" }}>
+        <h2>❌ ไม่พบสินค้า</h2>
+        <button onClick={() => navigate("/")}>⬅ กลับหน้าแรก</button>
+      </div>
+    )
+  }
 
   return (
-
     <div style={{ padding: "20px" }}>
 
-      <img src={product.image} width="300" />
+      <button onClick={() => navigate("/")}>
+        ⬅ กลับ
+      </button>
+
+      <br /><br />
+
+      <img src={product.image} width="300" alt={product.name} />
 
       <h1>{product.name}</h1>
 
@@ -39,7 +60,6 @@ function ProductDetail() {
       <p>{product.description}</p>
 
     </div>
-
   )
 }
 
