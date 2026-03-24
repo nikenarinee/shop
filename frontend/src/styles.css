@@ -400,3 +400,43 @@ body {
   font-size: 1.2rem;
   margin: 0;
 }
+
+/* Container หลักของช่องรหัสผ่าน เพื่อให้จัด position ได้ */
+.password-input-wrapper {
+  position: relative;
+  width: 100%;
+  margin-bottom: 0px; /* ลด margin เพื่อให้ใกล้กับข้อความแนะนำ */
+}
+
+/* Style ของกล่อง Input รหัสผ่านสีขาว */
+.password-input-field {
+  width: 100%;
+  padding-right: 45px; /* สำคัญ! เว้นที่ด้านขวาไว้ไม่ให้ตัวหนังสือทับลูกตา */
+  /* ด้านล่างนี้คือ style เดิมที่คุณอาจจะมีอยู่แล้ว ปรับให้เข้ากันครับ */
+  height: 40px; 
+  background-color: white; 
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box; /* ป้องกันกล่องล้นเมื่อมี padding */
+}
+
+/* Style ของปุ่มลูกตา */
+.password-toggle-btn {
+  position: absolute; /* จัดตำแหน่งแบบอิสระ */
+  right: 10px;        /* ชิดขวา 10px */
+  top: 50%;           /* อยู่ตรงกลางแนวตั้ง */
+  transform: translateY(-50%); /* ปรับจุดกึ่งกลางของปุ่มให้ตรงกับ top: 50% */
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 18px;
+  padding: 0;
+  color: #333;        /* สีของลูกตา */
+  display: flex;      /* เพื่อให้ Emoji อยู่ตรงกลาง */
+  align-items: center;
+}
+
+/* เมื่อ Mouse ชี้ที่ปุ่ม */
+.password-toggle-btn:hover {
+  opacity: 0.7;
+}
