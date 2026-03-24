@@ -1,6 +1,10 @@
 import { useEffect, useState } from "react"
 import { supabase } from "../lib/supabase"
 import { useNavigate } from "react-router-dom"
+import { useContext } from "react"
+import { AuthContext } from "../AuthContext"
+
+const { user } = useContext(AuthContext)
 
 function Admin() {
   const [products, setProducts] = useState([])
