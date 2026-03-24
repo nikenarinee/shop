@@ -90,14 +90,14 @@ function App() {
         {/* PRIVATE */}
         {user ? (
           <>
-            {/* 🔥 HOME */}
+            {/* HOME */}
             <Route
               path="/"
               element={
                 role === "owner" ? (
                   <Navigate to="/owner-dashboard" />
                 ) : role === "admin" ? (
-                  <Admin />
+                  <Navigate to="/admin" />
                 ) : (
                   <div>
 
@@ -160,7 +160,7 @@ function App() {
               }
             />
 
-            {/* 🔥 ADD THIS (สำคัญมาก) */}
+            {/* OWNER */}
             <Route
               path="/owner-dashboard"
               element={
@@ -170,9 +170,48 @@ function App() {
               }
             />
 
+            {/* ADMIN */}
+            <Route
+              path="/admin"
+              element={
+                role === "admin" || role === "owner"
+                  ? <Admin />
+                  : <Navigate to="/" />
+              }
+            />
+
+            <Route
+              path="/admin-orders"
+              element={
+                role === "admin" || role === "owner"
+                  ? <AdminOrders />
+                  : <Navigate to="/" />
+              }
+            />
+
+            <Route
+              path="/add-product"
+              element={
+                role === "admin" || role === "owner"
+                  ? <AddProduct />
+                  : <Navigate to="/" />
+              }
+            />
+
+            <Route
+              path="/edit-product/:id"
+              element={
+                role === "admin" || role === "owner"
+                  ? <EditProduct />
+                  : <Navigate to="/" />
+              }
+            />
+
+            {/* SHARED */}
             <Route path="/profile" element={<Profile user={user} />} />
             <Route path="/product/:id" element={<ProductDetail />} />
             <Route path="/checkout" element={<Checkout cart={cart} user={user} />} />
+            <Route path="/owner-orders" element={<OwnerOrders />} />
 
           </>
         ) : (
