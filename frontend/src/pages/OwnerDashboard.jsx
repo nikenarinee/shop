@@ -2,6 +2,7 @@ import { useEffect, useState } from "react"
 import { supabase } from "../lib/supabase"
 import { Link, useNavigate } from "react-router-dom" // เพิ่ม useNavigate
 
+
 function OwnerDashboard() {
   const [report, setReport] = useState({ totalSales: 0, orderCount: 0, pendingAmount: 0 })
   const [loading, setLoading] = useState(true)
